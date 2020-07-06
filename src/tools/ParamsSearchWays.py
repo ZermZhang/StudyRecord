@@ -27,7 +27,7 @@ features = [
 
 label = 'label_addbag_uv'
 
-df = pd.read_csv('../data/train.csv')
+df = pd.read_csv('../../data/train.csv')
 
 params = {
     "objective": "binary", "metric": "binary_logloss,auc",
