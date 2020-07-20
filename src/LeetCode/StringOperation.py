@@ -13,43 +13,49 @@
 class Solution:
     @staticmethod
     def isMatch(s: str, p: str) -> bool:
-        idx_p = 0
-        dot_flag = 0
-        star_flag = 0
-        keep_ele = ''
-        for idx_s in range(len(s)):
-            if s[idx_s] == p[idx_p]:
-                idx_p += 1
-                dot_flag = 0
-                star_flag = 0
-                keep_ele = s[idx_s]
-                continue
-            if p[idx_p] == '.':
-                idx_p += 1
-                dot_flag = 1
-                star_flag = 0
-                keep_ele = s[idx_s]
-                continue
-            if p[idx_p] == '*' or star_flag == 1:
-                if dot_flag == 1:
-                    if idx_p == len(p) - 1:
-                        return True
-                    else:
-                        return False
-                elif dot_flag == 0 and s[idx_s] == keep_ele:
-                    idx_p += 1
-                    dot_flag = 0
-                    star_flag = 1
-                    keep_ele = s[idx_s]
+
+        def skip_all_star(string, now_idx):
+            step = 1
+            while string[now_idx + step] == '*' or string[now_idx] == string[now_idx + step]:
+                step += 1
+                if now_idx + step < len(string):
                     continue
                 else:
-                    return False
+                    break
+            return now_idx + step
 
-        return True
+        p_idx = 0
+        s_idx = 0
+        while p_idx < len(p) and s_idx < len(s):
+            if p_idx + 1 < len(p) and p[p_idx + 1] == '*':
+                now_s_ele = s[s_idx]
+                if now_s_ele != p[p_idx] and p[p_idx] != '.':
+                    p_idx = skip_all_star(p, p_idx)
+                    continue
+                else:
+                    p_idx = skip_all_star(p, p_idx)
+                    if p_idx == len(p):
+                        return True
+                    while now_s_ele == s[s_idx]:
+                        s_idx += 1
+                        if s_idx < len(s):
+                            continue
+                        else:
+                            break
+            elif p[p_idx] == s[s_idx] or p[p_idx] == '.':
+                p_idx += 1
+                s_idx += 1
+                continue
+            else:
+                return False
+
+        result_bool = True if s_idx == len(s) and p_idx == len(p) else False
+
+        return result_bool
     
     
 if __name__ == '__main__':
-    s = "aab"
-    p = "c*a*b"
+    s = "aaa"
+    p = "ab*a*c*a"
     
     print(Solution.isMatch(s, p))
