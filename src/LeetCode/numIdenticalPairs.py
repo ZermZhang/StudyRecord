@@ -9,6 +9,7 @@
 @Desciption     :
 """
 from typing import List
+from collections import defaultdict
 
 
 def numIdenticalPairs(nums: List[int]) -> int:
@@ -17,6 +18,17 @@ def numIdenticalPairs(nums: List[int]) -> int:
         for j in range(i + 1, len(nums)):
             if nums[i] == nums[j]:
                 count += 1
+    return count
+
+
+def numIdenticalPairs_v2(nums: List[int]) -> int:
+    num_cnt = defaultdict(int)
+    for i in nums:
+        num_cnt[i] += 1
+
+    count = 0
+    for i in num_cnt.keys():
+        count += (num_cnt[i] * (num_cnt[i] - 1)) / 2
     return count
 
 
