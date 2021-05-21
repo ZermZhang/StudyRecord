@@ -18,6 +18,10 @@ def maximumWealth(accounts: List[List[int]]) -> int:
     return max(user_wealth)
 
 
+def maximumWealth_v2(accounts: List[List[int]]) -> int:
+    return max([sum(ele) for ele in accounts])
+
+
 if __name__ == '__main__':
     accounts_ = [[1,5],[7,3],[3,5]]
-    print(maximumWealth(accounts_))
+    print(maximumWealth_v2(accounts_))
