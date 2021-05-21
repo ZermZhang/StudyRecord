@@ -22,10 +22,14 @@ def reverseLeftWords(s: str, n: int) -> str:
 
 
 def reverseLeftWords_v2(s: str, n: int) -> str:
-    return s
+    if n > len(s):
+        return s
+    for i in range(n):
+        s += s[i]
+    return s[n:]
 
 
 if __name__ == "__main__":
-    s = ""
+    s = "abcdef"
     k = 2
     print(reverseLeftWords_v2(s, k))
