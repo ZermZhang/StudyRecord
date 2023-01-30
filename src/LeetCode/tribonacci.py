@@ -15,6 +15,7 @@ class Solution:
         return t[n]
 
     def tribonacci_v2(self, n: int) -> int:
+        # 会出现运行超时的问题
         t = [0, 1, 1]
 
         if n < 3:
