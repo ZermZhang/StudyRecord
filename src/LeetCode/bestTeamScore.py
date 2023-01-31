@@ -20,9 +20,13 @@ class Solution:
     def MaxSumInList(self, llist: List[int]) -> List[int]:
         # 获取List中和最大的升序子序列
         res = [ele for ele in llist]
+        # 使用两个指针一前一后分别对list进行遍历
+        # i为前序指针，j位后序指针
         for i in range(1, len(llist)):
             for j in range(i):
+                # 如果不是增序，则代表和年龄顺序不一致，过滤
                 if llist[i] >= llist[j]:
+                    # 记录从0 ~ i之间最大的子序列和的值
                     res[i] = max(res[i], res[j] + llist[i])
         return res
 
