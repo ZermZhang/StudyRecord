@@ -14,6 +14,18 @@ class Solution:
                 step += 1
         return step
 
+    def jump_v2(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 0
+
+        dp = [0] * len(nums)
+
+        j = 0
+        for i in range(1, len(nums)):
+            while j + nums[j] < i:
+                j += 1
+            dp[i] = dp[j] + 1
+        return dp[-1]
         # if len(nums) == 1:
         #     return 1
         # if nums[idx] >= len(nums) - 1:
@@ -34,8 +46,6 @@ class Solution:
         #     step = step + 1
         #     print('\t', idx, step)
 
-        return step
-
 
 if __name__ == '__main__':
     sol = Solution()
@@ -44,4 +54,4 @@ if __name__ == '__main__':
     # nums = [1, 1, 1, 1, 1]  # 4
     nums = [3, 4, 3, 2, 5, 4, 3]  # 3
 
-    print(sol.jump(nums=nums))
+    print(sol.jump_v2(nums=nums))
