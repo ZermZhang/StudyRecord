@@ -18,13 +18,20 @@ class Solution:
         if len(nums) == 1:
             return 0
 
+        # dp[i]记录调到nums[i]最少需要多少步
         dp = [0] * len(nums)
 
+        # j记录从nums[j]是否能一步跳到nums[i]
         j = 0
+        # 针对nums中的每个数字进行遍历
         for i in range(1, len(nums)):
+            # 判断nums[j]是否能一步跳到nums[i]
             while j + nums[j] < i:
+                # 如果不能的话，j前进一步
                 j += 1
+            # 如果能的话，代码dp[i]是从dp[j]的基础上+1 step即可实现
             dp[i] = dp[j] + 1
+        # 返回跳到nums[-1]需要的最小步数
         return dp[-1]
         # if len(nums) == 1:
         #     return 1
