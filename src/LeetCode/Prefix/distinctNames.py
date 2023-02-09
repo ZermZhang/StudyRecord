@@ -25,6 +25,8 @@ class Solution:
     def distinctNames_v3(self, ideas: List[str]) -> int:
         from collections import defaultdict
 
+        # 统计左右的idea的首字母分布情况，并记录
+        # 注意这里记录的是除了首字母之外的idea剩下的部分
         dct = defaultdict(set)
         for idea in ideas:
             dct[idea[0]].add(idea[1:])
@@ -32,9 +34,12 @@ class Solution:
         arr = list(dct.keys())
 
         count = 0
+        # 对所有可能首字母进行双向遍历
         for i in range(len(dct)):
             for j in range(i + 1, len(dct)):
                 count += (
+                    # 注意这里的操作，两个set， A - B，会保留A里面存在但是B里不存在的元素
+                    # 即dct[arr[i]] - dct[arr[j]]，会保留arr[i](首字母) + dct[arr[j]]（后缀）不属于idea中的值
                     len(dct[arr[i]] - dct[arr[j]]) * len(dct[arr[j]] - dct[arr[i]]) * 2
                 )
         return count
