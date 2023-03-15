@@ -151,3 +151,4 @@ cython_debug/
 
 # spyproject file
 .spyproject/
+.workspace.xml
